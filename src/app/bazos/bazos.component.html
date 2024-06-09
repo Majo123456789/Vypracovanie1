@@ -1,0 +1,48 @@
+<p>{{ state.header }}</p>
+
+<!-- {{ state | json }} -->
+
+<!-- filtering method -->
+<form [formGroup]="filterForm" (ngSubmit)="filterOffers()">
+  <label for="filterTitle">Filter Title</label>
+  <input type="text" id="filterTitle" formControlName="title" />
+
+  <label for="filterDescription">Filter Description</label>
+  <input type="text" id="filterDescription" formControlName="description" />
+
+  <label for="filterPriceMin">MIN Price</label>
+  <input type="number" id="filterPriceMin" formControlName="minPrice" />
+  <label for="filterPriceMax">MAX Price</label>
+  <input type="number" id="filterPriceMax" formControlName="maxPrice" />
+  <button type="submit">Apply Filter</button>
+  <button type="button" (click)="resetFilter()">Reset Filter</button>
+</form>
+
+<div
+  class="flex-container container"
+  fxLayout
+  fxLayoutAlign="center"
+  fxLayoutGap="10px"
+>
+  <div *ngFor="let offer of state.offers" class="item item-1">
+    <div>Title: {{ offer.title }}</div>
+    <div>Description: {{ offer.description }}</div>
+    <div>Price: {{ offer.price }}</div>
+  </div>
+</div>
+
+<!-- user input add offer -->
+<form [formGroup]="addOfferForm" (ngSubmit)="addNewOffer()">
+  <label for="title">Title</label>
+  <input type="text" id="title" formControlName="title" />
+
+  <label for="description">Description</label>
+  <textarea id="description" formControlName="description"></textarea>
+
+  <label for="price">Price</label>
+  <input type="number" id="price" formControlName="price" />
+
+  <button type="submit" [disabled]="addOfferForm.invalid">Add Offer</button>
+</form>
+<!-- delete offer -->
+<button (click)="deleteLastAddedOffer()">Delete last added offer</button>
